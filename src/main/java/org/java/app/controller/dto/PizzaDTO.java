@@ -14,7 +14,7 @@ public class PizzaDTO {
 		setName(name);
 		setDescription(description); 
 		setPhoto(photo); 
-		price(price);
+		setPrice(price);
 	}
 	
 	public int getId() {

@@ -7,6 +7,9 @@ package org.java.app.pojo;
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
+import org.java.app.controller.dto.PizzaDTO;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -56,22 +59,33 @@ public class Pizza {
 	@Column(nullable = false)
 	@Positive(message = "Il prezzo deve essere un valore positivo")
 	private double price;
+
+	@OneToMany(mappedBy = "pizza")
+	@JsonManagedReference 
+	private List<SpecialOffer> specialOffers;
 	
+	
+	@ManyToMany 
+	@JsonManagedReference 
+	private List<Ingredient> ingredients;
 	public Pizza() {
 		
 	}
-	
-	@OneToMany(mappedBy = "pizza")
-	private List<SpecialOffer> specialOffers;
-	
-	@ManyToMany 
-	private List<Ingredient> ingredients;
+
 	
 	public Pizza(String name, String description, String photo, double price) {
 		setName(name); 
 		setDescription(description); 
 		setPhoto(photo); 
 		setPrice(price);
+	}
+	
+	public Pizza(PizzaDTO pizzaDTO) {
+		setName(pizzaDTO.getName()); 
+		setDescription(pizzaDTO.getDescription()); 
+		setPhoto(pizzaDTO.getPhoto()); 
+		setPrice(pizzaDTO.getPrice());
+		
 	}
 
 	public int getId() {

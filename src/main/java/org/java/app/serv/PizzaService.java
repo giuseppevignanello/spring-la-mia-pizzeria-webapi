@@ -1,6 +1,7 @@
 package org.java.app.serv;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.java.app.pojo.Pizza;
 import org.java.app.repo.PizzaRepo;
@@ -13,9 +14,9 @@ public class PizzaService {
 	@Autowired
 	private PizzaRepo pizzaRepo;
 
-	public void save(Pizza pizza) {
+	public Pizza save(Pizza pizza) {
 
-		pizzaRepo.save(pizza);
+		return pizzaRepo.save(pizza);
 	}
 
 	public List<Pizza> findAll() {
@@ -23,9 +24,9 @@ public class PizzaService {
 		return pizzaRepo.findAll();
 	}
 
-	public Pizza findById(int id) {
+	public Optional<Pizza> findById(int id) {
 
-		return pizzaRepo.findById(id).get();
+		return pizzaRepo.findById(id);
 	}
 
 
