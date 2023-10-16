@@ -158,4 +158,13 @@ public class Pizza {
 	public void removeIngredient(Ingredient ingredient) {
 		getIngredients().remove(ingredient);
 	}
+
+
+	public void fillFromPizzaDto(PizzaDTO pizzaDTO) {
+		setName(pizzaDTO.getName()); 
+		setDescription(pizzaDTO.getDescription()); 
+		setPhoto(pizzaDTO.getPhoto()); 
+		setPrice(pizzaDTO.getPrice());
+		
+	}
 }
