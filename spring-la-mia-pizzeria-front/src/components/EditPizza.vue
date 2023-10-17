@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent="updatePizza(pizza.id)">
+        <form @submit.prevent="updatePizza()">
             <label for="name">Name</label>
             <br>
             <input type="text" name="name" v-model="editedPizza.name">
@@ -28,6 +28,7 @@
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
+const route = useRoute()
 const id = route.params.id;
 const apiUrl = "http://localhost:8080/api/v1.0";
 const emptyPizza = {
@@ -41,27 +42,22 @@ const editedPizza = ref({ ...emptyPizza });
 function clear() {
     editedPizza.value = ref({ ...emptyPizza });
 }
-function updatePizza(id) {
-    axios.put(`${apiUrl}/${id}`, editedPizza.value)
+function updatePizza() {
+    axios.put(apiUrl + "/" + id, editedPizza.value)
         .then(response => {
-
-            const data = response.data;
-
             clear();
         })
         .catch(err => console.log(err));
 }
 
-onMounted(async () => {
-    try {
-        const response = await axios.get(`${apiUrl}/${id}`);
-        editedPizza.value = response.data;
-    } catch (error) {
-        console.error(error.message);
-    }
-});
+onMounted(() => {
+    axios.get(apiUrl + "/" + id)
+        .then(response => {
+            editedPizza.value = response.data;
+        })
+        .catch(err => console.log(err));
 
-
+})
 </script>
 
 <style lang="scss" scoped></style>
