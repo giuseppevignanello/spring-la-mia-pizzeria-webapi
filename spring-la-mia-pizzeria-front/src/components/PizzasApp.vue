@@ -16,7 +16,7 @@
           <p> $ {{ pizza.price }}</p>
           <div class="buttons">
             <button>Edit</button>
-            <button>Delete</button>
+            <button @click="pizzaDelete(pizza.id)">Delete</button>
           </div>
         </li>
       </ul>
@@ -29,7 +29,19 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios';
 const apiUrl = "http://localhost:8080/api/v1.0";
 const pizzas = ref(null);
-onMounted(() => {
+
+function pizzaDelete(id) {
+  axios.delete(apiUrl + '/' + id)
+    .then(response => {
+      getAll();
+    })
+    .catch((error) => {
+      console.error(error.message);
+    })
+
+}
+
+function getAll() {
   axios.get(apiUrl)
     .then((response) => {
       pizzas.value = response.data;
@@ -37,6 +49,10 @@ onMounted(() => {
     .catch((error) => {
       console.error(error.message);
     })
+}
+
+onMounted(() => {
+  getAll();
 }
 )
 </script>
