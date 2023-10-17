@@ -8,7 +8,7 @@ const router = createRouter({
   routes: [
     { path: "/", name: "home", component: PizzasApp },
     { path: "/create", name: "create", component: CreatePizza },
-    { path: "/edit", name: "edit", component: EditPizza },
+    { path: "/edit/:id", name: "edit", component: EditPizza },
   ],
 });
 
