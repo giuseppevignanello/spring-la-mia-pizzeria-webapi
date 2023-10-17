@@ -57,6 +57,13 @@ public class PizzaRestController {
 		
 		return new ResponseEntity<>(optPizza.get(), HttpStatus.OK);
 	}
+
+	@GetMapping("/filter/{filter}")
+	public ResponseEntity<List<Pizza>> getFilteredPizzas(@PathVariable String filter) {
+		List<Pizza> filteredPizzas = pizzaRepo.findByNameContaining(filter);
+
+		return new ResponseEntity<List<Pizza>>(filteredPizzas, HttpStatus.OK);
+	}
 	
 	@PutMapping("{id}")
 	public ResponseEntity<Pizza> updatePizza(
